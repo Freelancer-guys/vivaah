@@ -1,38 +1,56 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import {
+  weddings,
+  services,
+  inquiries,
+  type InsertWedding,
+  type InsertService,
+  type InsertInquiry,
+  type Wedding,
+  type Service,
+  type Inquiry
+} from "@shared/schema";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getWeddings(): Promise<Wedding[]>;
+  getWedding(id: number): Promise<Wedding | undefined>;
+  createWedding(wedding: InsertWedding): Promise<Wedding>;
+  
+  getServices(): Promise<Service[]>;
+  createService(service: InsertService): Promise<Service>;
+  
+  createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getWeddings(): Promise<Wedding[]> {
+    return await db.select().from(weddings);
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getWedding(id: number): Promise<Wedding | undefined> {
+    const [wedding] = await db.select().from(weddings).where(eq(weddings.id, id));
+    return wedding;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createWedding(wedding: InsertWedding): Promise<Wedding> {
+    const [newWedding] = await db.insert(weddings).values(wedding).returning();
+    return newWedding;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getServices(): Promise<Service[]> {
+    return await db.select().from(services);
+  }
+
+  async createService(service: InsertService): Promise<Service> {
+    const [newService] = await db.insert(services).values(service).returning();
+    return newService;
+  }
+
+  async createInquiry(inquiry: InsertInquiry): Promise<Inquiry> {
+    const [newInquiry] = await db.insert(inquiries).values(inquiry).returning();
+    return newInquiry;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
