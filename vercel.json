@@ -1,8 +1,8 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/assets/(.*)", "destination": "/dist/public/assets/$1" },
-    { "source": "/favicon.png", "destination": "/dist/public/favicon.png" },
-    { "source": "/(.*)", "destination": "/dist/public/index.html" }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/assets/(.*)", "dest": "/dist/public/assets/$1" },
+    { "src": "/favicon.png", "dest": "/dist/public/favicon.png" },
+    { "src": "/(.*)", "dest": "/dist/public/index.html" }
   ]
 }
