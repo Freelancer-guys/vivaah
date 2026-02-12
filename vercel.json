@@ -1,9 +1,8 @@
 {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-    ]
-  }
-  
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/assets/(.*)", "destination": "/dist/public/assets/$1" },
+    { "source": "/favicon.png", "destination": "/dist/public/favicon.png" },
+    { "source": "/(.*)", "destination": "/dist/public/index.html" }
+  ]
+}
