@@ -6,7 +6,7 @@ const weddings = [
     date: 'March 15, 2024',
     location: 'Umaid Bhawan Palace, Jodhpur',
     description: 'A grand royal celebration at the iconic Umaid Bhawan Palace.',
-    coverImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80',
+    coverImage: 'https://eventsweb.in/wp-content/uploads/2024/12/pexels-fotographiya-wedding-photography-823737813-29492598-1024x683.jpg',
     galleryImages: [],
     featured: true,
   },
