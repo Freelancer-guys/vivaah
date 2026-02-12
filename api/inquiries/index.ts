@@ -9,17 +9,11 @@ export default async function handler(req: any, res: any) {
           return res.status(400).json({ message: 'Invalid JSON body' });
         }
       }
-
-      // Silently accept the inquiry
-      const inquiry = { id: 1, ...body };
-      return res.status(201).json({ success: true, inquiry });
+      return res.status(201).json({ success: true });
     }
-
     res.setHeader('Allow', 'POST');
     return res.status(405).end('Method Not Allowed');
   } catch (err: any) {
-    console.error('API /inquiries error:', err);
-    const stack = err?.stack || String(err);
-    return res.status(500).json({ message: 'Internal server error', error: String(err?.message || err), stack });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

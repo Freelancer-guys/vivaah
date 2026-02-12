@@ -1,19 +1,47 @@
-import { getWeddings, ensureSeeded } from './data';
+const weddings = [
+  {
+    id: 1,
+    title: 'The Royal Rajvansh Wedding',
+    couple: 'Anish & Shweta',
+    date: 'March 15, 2024',
+    location: 'Umaid Bhawan Palace, Jodhpur',
+    description: 'A grand royal celebration at the iconic Umaid Bhawan Palace.',
+    coverImage: 'https://eventsweb.in/wp-content/uploads/2024/12/pexels-fotographiya-wedding-photography-823737813-29492598-1024x683.jpg',
+    galleryImages: [],
+    featured: true,
+  },
+  {
+    id: 2,
+    title: 'Midnight at the Backwaters',
+    couple: 'Rohan & Meera',
+    date: 'November 8, 2023',
+    location: 'Kumarakom, Kerala',
+    description: 'An intimate celebration on the serene backwaters of Kerala.',
+    coverImage: 'https://i.ytimg.com/vi/DUnfSGCIbS8/hq720.jpg',
+    galleryImages: [],
+    featured: true,
+  },
+  {
+    id: 3,
+    title: 'The Great Gatsby Sangeet',
+    couple: 'Kabir & Rhea',
+    date: 'December 2, 2024',
+    location: 'The Taj Mahal Palace, Mumbai',
+    description: 'A Roaring Twenties-inspired Sangeet at Mumbai\'s iconic Taj Mahal Palace.',
+    coverImage: 'https://i.pinimg.com/236x/7c/b3/d3/7cb3d310c2ac1be68bc25b5ebdf8ad47.jpg',
+    galleryImages: [],
+    featured: true,
+  },
+];
 
 export default async function handler(req: any, res: any) {
   try {
-    await ensureSeeded();
-
     if (req.method !== 'GET') {
       res.setHeader('Allow', 'GET');
       return res.status(405).end('Method Not Allowed');
     }
-
-    const weddings = getWeddings();
     return res.status(200).json(weddings);
   } catch (err: any) {
-    console.error('API /weddings error:', err);
-    const stack = err?.stack || String(err);
-    return res.status(500).json({ message: 'Internal server error', error: String(err?.message || err), stack });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
