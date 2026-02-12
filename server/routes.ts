@@ -54,44 +54,49 @@ async function seedDatabase() {
   const existingWeddings = await storage.getWeddings();
   if (existingWeddings.length === 0) {
     await storage.createWedding({
-      title: "Coastal Elegance",
-      couple: "Elena & Marcus",
-      date: "August 12, 2023",
-      location: "Amalfi Coast, Italy",
-      description: "A breathtaking celebration overlooking the Tyrrhenian Sea, featuring white roses, gold accents, and a sunset reception.",
-      coverImage: "https://images.unsplash.com/photo-1519225421980-715cb0202128?auto=format&fit=crop&q=80",
+      title: "The Royal Rajvansh Wedding",
+      couple: "Anish & Shweta",
+      date: "March 15, 2024",
+      location: "Umaid Bhawan Palace, Jodhpur",
+      description: "A grand royal celebration at the iconic Umaid Bhawan Palace. This wedding featured a magnificent 500+ guest Baraat with gilded elephant processions, hand-painted mehendi designs, a Sangeet showcasing 12 classical dancers, and a reception dinner in the marble hall with custom-designed rangoli installations. The couple exchanged vows under a floral mandap adorned with marigolds and jasmine, with the setting sun painting the desert gold.",
+      coverImage: "https://eventsweb.in/wp-content/uploads/2024/12/pexels-fotographiya-wedding-photography-823737813-29492598-1024x683.jpg",
       galleryImages: [
         "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1520854221256-17451cc330e7?auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1537633552985-f06dc221d429?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519224537171-0ac100be4e67?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1505826346881-53103b34b206?auto=format&fit=crop&q=80"
       ],
       featured: true
     });
 
     await storage.createWedding({
-      title: "Urban Chic",
-      couple: "Sarah & David",
-      date: "October 5, 2023",
-      location: "New York City, NY",
-      description: "Modern minimalist wedding in a loft space with industrial details and candlelight.",
-      coverImage: "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&q=80",
+      title: "Midnight at the Backwaters",
+      couple: "Rohan & Meera",
+      date: "November 8, 2023",
+      location: "Kumarakom, Kerala",
+      description: "An intimate celebration on the serene backwaters of Kerala. This 150-guest wedding blended Kerala's tropical elegance with modern minimalism. The mehendi was held on a houseboat with live Kathakali performers, the Sangeet featured sunset views over the lagoon, and the main ceremony took place in a custom pavilion with water reflections. The reception dinner was a curated Kerala feast with fresh seafood and spices, set against the gentle lap of water and the glow of lanterns.",
+      coverImage: "https://i.ytimg.com/vi/DUnfSGCIbS8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDfqCCS6lZR1628w8azPyED-fbF7A",
       galleryImages: [
-        "https://images.unsplash.com/photo-1522673607200-1645062cd958?auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1502933691298-84fc14542831?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1516634581007-f3e2b5b837ab?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1474926069028-56623f02e42e?auto=format&fit=crop&q=80"
       ],
       featured: true
     });
 
     await storage.createWedding({
-      title: "Garden Romance",
-      couple: "James & Olivia",
-      date: "June 20, 2023",
-      location: "Provence, France",
-      description: "An intimate gathering amidst lavender fields and ancient olive trees.",
-      coverImage: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80",
+      title: "The Great Gatsby Sangeet",
+      couple: "Kabir & Rhea",
+      date: "December 2, 2024",
+      location: "The Taj Mahal Palace, Mumbai",
+      description: "A Roaring Twenties-inspired Sangeet at Mumbai's iconic Taj Mahal Palace. This 400-guest extravaganza featured Art Deco elements blended with Indian motifs, a live jazz band performing Sufi-jazz fusion, 15 choreographed performances by Bollywood dancers, and a champagne-gold color palette. The mandap was designed as a vintage cinema stage with golden accents, the dance floor was backlit with amber lighting, and the evening culminated in a grand fireworks display overlooking the Arabian Sea.",
+      coverImage: "https://i.pinimg.com/236x/7c/b3/d3/7cb3d310c2ac1be68bc25b5ebdf8ad47.jpg",
       galleryImages: [
-        "https://images.unsplash.com/photo-1524824267900-2fa9a06e9048?auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1511619917486-a01980e01a18?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80"
       ],
       featured: true
     });
