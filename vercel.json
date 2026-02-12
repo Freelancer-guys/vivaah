@@ -17,6 +17,14 @@
   ],
   "routes": [
     {
+      "src": "/favicon.png",
+      "dest": "/dist/public/favicon.png"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/public/assets/$1"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/server/index.ts"
     },
