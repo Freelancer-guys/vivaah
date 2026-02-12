@@ -3,6 +3,9 @@ import { storage } from '../_storage';
 
 export default async function handler(req: any, res: any) {
   try {
+    const { default: ensureSeeded } = await import('../_seed');
+    const { storage } = await import('../_storage');
+
     await ensureSeeded();
 
     if (req.method === 'POST') {
