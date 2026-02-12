@@ -1,4 +1,4 @@
-import { storage } from '../server/storage';
+import { storage } from './_storage';
 
 export async function ensureSeeded() {
   const existing = await storage.getWeddings();

@@ -1,5 +1,5 @@
 import ensureSeeded from '../_seed';
-import { storage } from '../../server/storage';
+import { storage } from '../_storage';
 
 export default async function handler(req: any, res: any) {
   try {
