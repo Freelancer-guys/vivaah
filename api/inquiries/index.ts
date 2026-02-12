@@ -23,6 +23,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).end('Method Not Allowed');
   } catch (err: any) {
     console.error('API /inquiries error:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+    const stack = err?.stack || String(err);
+    return res.status(500).json({ message: 'Internal server error', error: String(err?.message || err), stack });
   }
 }

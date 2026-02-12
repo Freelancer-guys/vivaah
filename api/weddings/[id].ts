@@ -21,6 +21,7 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json(wedding);
   } catch (err: any) {
     console.error('API /weddings/[id] error:', err);
-    return res.status(500).json({ message: 'Internal server error' });
+    const stack = err?.stack || String(err);
+    return res.status(500).json({ message: 'Internal server error', error: String(err?.message || err), stack });
   }
 }
