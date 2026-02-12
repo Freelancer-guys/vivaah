@@ -1,8 +1,7 @@
+import { getServices, ensureSeeded } from './data';
+
 export default async function handler(req: any, res: any) {
   try {
-    const { default: ensureSeeded } = await import('../_seed');
-    const { storage } = await import('../_storage');
-
     await ensureSeeded();
 
     if (req.method !== 'GET') {
@@ -10,7 +9,7 @@ export default async function handler(req: any, res: any) {
       return res.status(405).end('Method Not Allowed');
     }
 
-    const services = await storage.getServices();
+    const services = getServices();
     return res.status(200).json(services);
   } catch (err: any) {
     console.error('API /services error:', err);

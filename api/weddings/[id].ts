@@ -1,8 +1,7 @@
+import { getWedding, ensureSeeded } from './data';
+
 export default async function handler(req: any, res: any) {
   try {
-    const { default: ensureSeeded } = await import('../_seed');
-    const { storage } = await import('../_storage');
-
     await ensureSeeded();
 
     if (req.method !== 'GET') {
@@ -16,7 +15,7 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ message: 'Invalid id' });
     }
 
-    const wedding = await storage.getWedding(num);
+    const wedding = getWedding(num);
     if (!wedding) return res.status(404).json({ message: 'Wedding not found' });
     return res.status(200).json(wedding);
   } catch (err: any) {
