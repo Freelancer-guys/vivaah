@@ -1,7 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "framework": "vite",
   "env": {
     "NODE_ENV": "production"
   },
@@ -9,9 +8,7 @@
     {
       "src": "server/index.ts",
       "use": "@vercel/node",
-      "config": {
-        "maxDuration": 60
-      }
+      "config": { "maxDuration": 60 }
     },
     {
       "src": "client/dist/**",
@@ -21,18 +18,12 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server/index.ts"
+      "dest": "/server/index.ts"
     },
     {
       "src": "/(.*)",
-      "dest": "client/dist/index.html",
+      "dest": "/client/dist/index.html",
       "status": 200
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/server$0"
     }
   ]
 }
