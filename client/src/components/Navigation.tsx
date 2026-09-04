@@ -39,12 +39,12 @@ export function Navigation() {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isDarkPage 
-            ? "bg-white/10 backdrop-blur-md border-b border-white/10 text-white"
+            ? "bg-black/30 backdrop-blur-md border-b border-white/10 text-white"
             : scrolled || menuOpen
-            ? "bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm"
-            : "bg-transparent text-white"
+            ? "bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm text-foreground"
+            : "bg-gradient-to-b from-black/80 via-black/45 to-transparent text-white"
         }`}
       >
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -52,7 +52,7 @@ export function Navigation() {
               <motion.div 
               whileHover={{ scale: 1.05 }}
               className={`font-serif text-2xl font-bold tracking-widest uppercase cursor-pointer transition-colors ${
-                isDarkPage ? "text-white" : scrolled || location !== "/" ? "text-foreground" : "text-white"
+                isDarkPage ? "text-white text-shadow-sm" : scrolled || location !== "/" ? "text-foreground" : "text-white text-shadow-md"
               }`}
             >
               VIVAAH LUXE
@@ -63,11 +63,11 @@ export function Navigation() {
           <nav className="hidden md:flex gap-12 items-center">
             {links.map((link) => (
               <Link key={link.href} href={link.href}
-                className={`text-sm uppercase tracking-widest transition-all hover:opacity-70 ${
+                className={`text-sm uppercase tracking-widest font-medium transition-all hover:opacity-100 ${
                   isDarkPage
-                    ? "text-white hover:text-white/80"
-                    : scrolled || location !== "/" ? "text-foreground" : "text-white/90 hover:text-white"
-                } ${location === link.href ? "underline decoration-primary decoration-1 underline-offset-8" : ""}`}
+                    ? "text-white text-shadow-sm hover:text-white/80"
+                    : scrolled || location !== "/" ? "text-foreground hover:text-primary" : "text-white text-shadow-sm hover:text-primary-foreground hover:scale-105"
+                } ${location === link.href ? "underline decoration-primary decoration-2 underline-offset-8" : ""}`}
               >
                 {link.label}
               </Link>
@@ -84,7 +84,7 @@ export function Navigation() {
                     ? "bg-white/20 hover:bg-white/30 text-white"
                     : scrolled || location !== "/" 
                     ? "bg-primary/10 hover:bg-primary/20 text-primary" 
-                    : "bg-white/10 hover:bg-white/20 text-white"
+                    : "bg-black/30 hover:bg-black/50 border border-white/20 text-white text-shadow-sm backdrop-blur-sm"
                 }`}
               >
                 <Phone className="w-4 h-4" />
@@ -100,7 +100,7 @@ export function Navigation() {
                     ? "bg-white/20 hover:bg-white/30 text-white"
                     : scrolled || location !== "/" 
                     ? "bg-primary/10 hover:bg-primary/20 text-primary" 
-                    : "bg-white/10 hover:bg-white/20 text-white"
+                    : "bg-black/30 hover:bg-black/50 border border-white/20 text-white text-shadow-sm backdrop-blur-sm"
                 }`}
               >
                 <Mail className="w-4 h-4" />

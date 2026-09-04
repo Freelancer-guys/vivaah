@@ -3,7 +3,17 @@ import { type Wedding } from "@shared/schema";
 import { motion } from "framer-motion";
 import { Play, Star } from "lucide-react";
 
+const FALLBACK_COVERS: Record<number, string> = {
+  1: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200", // Jodhpur Palace
+  2: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=1200", // Kerala Backwaters
+  3: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1200", // Taj Gatsby Sangeet
+};
+
+const DEFAULT_COVER = "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200";
+
 export function WeddingCard({ wedding }: { wedding: Wedding }) {
+  const fallbackImage = FALLBACK_COVERS[wedding.id] || DEFAULT_COVER;
+
   return (
     <Link href={`/weddings/${wedding.id}`}>
       <motion.div 
@@ -21,7 +31,10 @@ export function WeddingCard({ wedding }: { wedding: Wedding }) {
 
           {/* Image with Parallax */}
           <motion.img 
-            src={wedding.coverImage} 
+            src={wedding.coverImage || fallbackImage} 
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = fallbackImage;
+            }}
             alt={wedding.title}
             className="w-full h-full object-cover"
             initial={{ scale: 1.05 }}
@@ -47,20 +60,20 @@ export function WeddingCard({ wedding }: { wedding: Wedding }) {
           {/* Featured Badge */}
           {wedding.featured && (
             <motion.div
-              className="absolute top-4 right-4 z-30 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/30"
+              className="absolute top-4 right-4 z-30 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/30 shadow-md text-shadow-sm"
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <span className="text-xs font-semibold text-white flex items-center gap-1">
-                <Star className="w-3 h-3 fill-white" /> Featured
+                <Star className="w-3 h-3 fill-amber-300 text-amber-300" /> Featured
               </span>
             </motion.div>
           )}
 
           {/* Event Date Badge */}
           <motion.div
-            className="absolute bottom-4 left-4 z-30 bg-white/20 backdrop-blur-md px-4 py-2 rounded-lg border border-white/30"
-            animate={{ opacity: [0.7, 1, 0.7] }}
+            className="absolute bottom-4 left-4 z-30 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-lg border border-white/30 shadow-md text-shadow-sm"
+            animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
             <span className="text-xs font-semibold text-white">{wedding.date}</span>

@@ -16,6 +16,7 @@ export interface IStorage {
   getWeddings(): Promise<Wedding[]>;
   getWedding(id: number): Promise<Wedding | undefined>;
   createWedding(wedding: InsertWedding): Promise<Wedding>;
+  resetWeddings(): Promise<void>;
   
   getServices(): Promise<Service[]>;
   createService(service: InsertService): Promise<Service>;
@@ -30,6 +31,11 @@ class MemoryStorage implements IStorage {
   private weddingsData: Wedding[] = [];
   private servicesData: Service[] = [];
   private inquiriesData: Inquiry[] = [];
+
+  async resetWeddings(): Promise<void> {
+    this.weddingsData = [];
+    this.weddingId = 1;
+  }
 
   async getWeddings(): Promise<Wedding[]> {
     return this.weddingsData;
@@ -64,6 +70,10 @@ class MemoryStorage implements IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
+  async resetWeddings(): Promise<void> {
+    // no-op for DB storage
+  }
+
   async getWeddings(): Promise<Wedding[]> {
     return await db.select().from(weddings);
   }

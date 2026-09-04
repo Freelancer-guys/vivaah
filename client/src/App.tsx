@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Navigation } from "@/components/Navigation";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { LiveChatIndicator } from "@/components/LiveChatIndicator";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { useLeadPopup } from "@/hooks/use-lead-popup";
 import Home from "@/pages/Home";
 import Portfolio from "@/pages/Portfolio";

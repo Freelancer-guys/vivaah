@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Heart, Gift, Clock } from "lucide-react";
+import { X, Heart, Gift, Clock, Sparkles } from "lucide-react";
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
@@ -69,122 +69,86 @@ export function LeadCaptureModal({ isOpen, onClose, onSubmit }: LeadCaptureModal
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ scale: 0.92, opacity: 0, y: 15 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25 }}
+            exit={{ scale: 0.92, opacity: 0, y: 15 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-auto relative"
+            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto overflow-x-hidden relative border border-amber-100"
+            style={{ scrollbarWidth: "none" }}
           >
-            {/* Animated Background */}
-            <motion.div
-              className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/20 to-pink-500/20 rounded-full blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 6, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-pink-200/30 to-primary/10 rounded-full blur-3xl"
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 8, repeat: Infinity, delay: 1 }}
-            />
+            {/* Ambient Background Accents */}
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-amber-50/80 to-transparent pointer-events-none" />
 
             {/* Close Button */}
             <motion.button
               ref={closeBtnRef}
               type="button"
               onClick={(e) => {
-                console.log('[LeadCaptureModal] close button clicked');
                 e.stopPropagation();
                 onClose();
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Close lead modal"
-              className="absolute top-6 right-6 z-50 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors pointer-events-auto"
+              className="absolute top-5 right-5 z-50 w-9 h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 flex items-center justify-center transition-all shadow-sm"
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-4 h-4" />
             </motion.button>
 
-            <div className="relative z-10 p-6 md:p-12">
+            <div className="relative z-10 p-6 sm:p-8">
               {!submitted ? (
                 <>
                   {/* Header */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="mb-8"
-                  >
-                    <motion.div
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="inline-block"
-                    >
-                      <Heart className="w-8 h-8 text-primary fill-primary mb-4" />
-                    </motion.div>
-                    <h2 className="text-3xl font-serif text-foreground mb-2">
-                      Get Your Free Consultation
+                  <div className="text-center mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 text-white flex items-center justify-center mx-auto mb-3 shadow-md shadow-amber-500/20">
+                      <Sparkles className="w-6 h-6" />
+                    </div>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-700 bg-amber-50 border border-amber-200/60 px-3 py-1 rounded-full inline-block mb-2">
+                      Private Consultation
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-serif text-neutral-900 leading-tight">
+                      Plan Your Dream Celebration
                     </h2>
-                    <p className="text-muted-foreground font-light">
-                      Join 500+ couples who found their dream wedding planner
+                    <p className="text-neutral-500 text-xs sm:text-sm font-light mt-1">
+                      Complimentary 30-minute bespoke curation with our senior director
                     </p>
-                  </motion.div>
+                  </div>
 
-                  {/* Benefits */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="space-y-3 mb-8 bg-gradient-to-r from-primary/5 to-pink-500/5 p-4 rounded-lg border border-primary/10"
-                  >
-                    {[
-                      { icon: Gift, text: "Custom proposal & pricing" },
-                      { icon: Heart, text: "Personalized venue recommendations" },
-                      { icon: Clock, text: "Timeline & budget planning" },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + i * 0.1 }}
-                        className="flex items-center gap-3"
-                      >
-                        <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                          <item.icon className="w-4 h-4 text-primary" />
-                        </div>
-                        <span className="text-sm text-foreground font-light">{item.text}</span>
-                      </motion.div>
-                    ))}
-                  </motion.div>
+                  {/* Benefits Grid */}
+                  <div className="grid grid-cols-3 gap-2 mb-6 bg-neutral-50/80 p-3 rounded-2xl border border-neutral-100 text-center">
+                    <div className="p-1.5">
+                      <Gift className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+                      <p className="text-[11px] font-medium text-neutral-800">Custom Proposal</p>
+                    </div>
+                    <div className="p-1.5 border-x border-neutral-200/60">
+                      <Heart className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+                      <p className="text-[11px] font-medium text-neutral-800">Venue Curation</p>
+                    </div>
+                    <div className="p-1.5">
+                      <Clock className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+                      <p className="text-[11px] font-medium text-neutral-800">Budget Guidance</p>
+                    </div>
+                  </div>
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
+                  <form onSubmit={handleSubmit} className="space-y-3.5">
+                    <div>
                       <input
                         type="text"
-                        placeholder="Your Name *"
+                        placeholder="Your Full Name *"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-neutral-800 placeholder:text-neutral-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-sm transition-all bg-white"
                         required
                       />
-                    </motion.div>
+                    </div>
 
-                    {/* Email */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.25 }}
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
                         type="email"
                         placeholder="Email Address *"
@@ -192,17 +156,9 @@ export function LeadCaptureModal({ isOpen, onClose, onSubmit }: LeadCaptureModal
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-neutral-800 placeholder:text-neutral-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-sm transition-all bg-white"
                         required
                       />
-                    </motion.div>
-
-                    {/* Phone */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
                       <input
                         type="tel"
                         placeholder="Phone Number *"
@@ -210,89 +166,63 @@ export function LeadCaptureModal({ isOpen, onClose, onSubmit }: LeadCaptureModal
                         onChange={(e) =>
                           setFormData({ ...formData, phone: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-neutral-800 placeholder:text-neutral-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-sm transition-all bg-white"
                         required
                       />
-                    </motion.div>
+                    </div>
 
-                    {/* Event Date */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.35 }}
-                    >
+                    <div>
                       <input
                         type="text"
-                        placeholder="Approximate Event Date (optional)"
+                        placeholder="Target Season or Date (e.g. Winter 2026, Dec 2026)"
                         value={formData.eventDate}
                         onChange={(e) =>
                           setFormData({ ...formData, eventDate: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-neutral-800 placeholder:text-neutral-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-sm transition-all bg-white"
                       />
-                    </motion.div>
-
-                    {/* Trust Text */}
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-xs text-muted-foreground text-center font-light"
-                    >
-                      ✓ We respect your privacy • No spam, guaranteed
-                    </motion.p>
+                    </div>
 
                     {/* Submit Button */}
                     <motion.button
                       type="submit"
                       disabled={loading}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full mt-6 bg-gradient-to-r from-primary to-pink-500 text-white py-3 rounded-lg font-bold uppercase tracking-widest hover:shadow-lg transition-all disabled:opacity-70"
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      className="w-full py-3.5 bg-neutral-900 hover:bg-neutral-800 text-amber-100 rounded-xl font-semibold uppercase tracking-widest text-xs transition-all shadow-lg hover:shadow-xl disabled:opacity-70 flex items-center justify-center gap-2 mt-2"
                     >
                       {loading ? (
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity }}
-                          className="inline-block"
-                        >
-                          ⟳
-                        </motion.div>
+                        <div className="w-5 h-5 border-2 border-amber-200 border-t-transparent rounded-full animate-spin" />
                       ) : (
-                        "Unlock Your Free Consultation"
+                        "Request VIP Consultation →"
                       )}
                     </motion.button>
+
+                    <p className="text-[11px] text-neutral-400 text-center font-light pt-1">
+                      🔒 Discretion guaranteed • Direct callback within 2 hours
+                    </p>
                   </form>
                 </>
               ) : (
                 // Success State
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="text-center py-12 space-y-4"
-                >
+                <div className="text-center py-10 space-y-4">
                   <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 0.6 }}
+                    animate={{ scale: [1, 1.15, 1] }}
+                    transition={{ duration: 0.5 }}
+                    className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-2"
                   >
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center mx-auto mb-4">
-                      <Heart className="w-8 h-8 text-white fill-white" />
-                    </div>
+                    <Heart className="w-8 h-8 fill-emerald-600" />
                   </motion.div>
-                  <h3 className="text-2xl font-serif text-foreground">
-                    Perfect!
+                  <h3 className="text-2xl font-serif text-neutral-900">
+                    Consultation Requested
                   </h3>
-                  <p className="text-muted-foreground font-light">
-                    We'll call you within 2 hours to discuss your special day. Get ready to plan the wedding of your dreams!
+                  <p className="text-neutral-600 font-light text-sm max-w-sm mx-auto leading-relaxed">
+                    Thank you, <span className="font-semibold text-neutral-900">{formData.name}</span>. Our wedding director will contact you directly to curate your royal celebration.
                   </p>
-                  <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="text-primary text-sm font-semibold uppercase tracking-widest pt-4"
-                  >
-                    Redirecting you back...
-                  </motion.div>
-                </motion.div>
+                  <div className="text-amber-700 text-xs font-semibold uppercase tracking-widest pt-2">
+                    Returning to experience...
+                  </div>
+                </div>
               )}
             </div>
           </motion.div>

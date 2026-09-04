@@ -1,9 +1,12 @@
 import { useRoute } from "wouter";
 import { useWedding } from "@/hooks/use-weddings";
 import { SectionReveal } from "@/components/SectionReveal";
-import { Loader2, Calendar, MapPin, ArrowLeft, Heart, Share2 } from "lucide-react";
+import { Loader2, Calendar, MapPin, ArrowLeft, Heart, Share2, X, Play } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+const DEFAULT_COVER = "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=80&w=1200";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,6 +31,7 @@ const itemVariants = {
 export default function WeddingDetails() {
   const [match, params] = useRoute("/weddings/:id");
   const { data: wedding, isLoading } = useWedding(Number(params?.id));
+  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
 
   if (isLoading) {
     return (
@@ -57,8 +61,37 @@ export default function WeddingDetails() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      {/* Video Modal */}
+      {isPlayingVideo && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+          onClick={() => setIsPlayingVideo(false)}
+        >
+          <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/20" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setIsPlayingVideo(false)}
+              className="absolute top-4 right-4 z-50 p-2 bg-black/60 hover:bg-black/90 rounded-full text-white transition-colors border border-white/20"
+            >
+              <X size={24} />
+            </button>
+            <video
+              poster={wedding.coverImage || DEFAULT_COVER}
+              controls
+              autoPlay
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+            >
+              <source src="/wedding-reel.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </motion.div>
+      )}
+
       {/* Hero Section */}
-      <div className="h-[70vh] relative overflow-hidden bg-black">
+      <section className="relative h-[80vh] w-full overflow-hidden bg-black">
         <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -66,28 +99,29 @@ export default function WeddingDetails() {
           className="absolute inset-0"
         >
           <img 
-            src={wedding.coverImage} 
+            src={wedding.coverImage || DEFAULT_COVER} 
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = DEFAULT_COVER;
+            }}
             alt={wedding.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-90"
           />
         </motion.div>
 
         {/* Overlay with Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60" />
 
-        {/* Video Icon Indicator */}
+        {/* Video Play Button */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
-          whileHover={{ opacity: 1 }}
+          className="absolute inset-0 flex items-center justify-center z-30 cursor-pointer group"
+          onClick={() => setIsPlayingVideo(true)}
         >
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-24 h-24 rounded-full bg-white/25 hover:bg-white/40 backdrop-blur-md flex items-center justify-center border-2 border-white/70 shadow-2xl transition-all duration-300"
           >
-            <svg className="w-10 h-10 text-white fill-white ml-1" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+            <Play className="w-10 h-10 text-white fill-white ml-1" />
           </motion.div>
         </motion.div>
 
@@ -98,7 +132,7 @@ export default function WeddingDetails() {
             whileHover={{ x: -5 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="inline-flex items-center gap-2 text-white hover:text-white/80 bg-white/20 hover:bg-white/30 backdrop-blur-md px-4 py-3 rounded-full border border-white/40 transition-all duration-300 text-sm uppercase tracking-widest font-semibold">
+            <div className="inline-flex items-center gap-2 text-white hover:text-amber-100 bg-black/60 hover:bg-black/80 backdrop-blur-md px-4 py-3 rounded-full border border-white/40 transition-all duration-300 text-sm uppercase tracking-widest font-semibold shadow-lg text-shadow-sm">
               <ArrowLeft size={18} />Back
             </div>
           </motion.div>
@@ -141,7 +175,7 @@ export default function WeddingDetails() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Content Section */}
       <div className="container mx-auto px-6 py-24 max-w-7xl relative z-10">

@@ -52,11 +52,11 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <motion.div 
-            className="absolute inset-0 bg-black/30 mix-blend-multiply"
-            animate={{ opacity: [0.3, 0.4, 0.3] }}
+            className="absolute inset-0 bg-black/45"
+            animate={{ opacity: [0.4, 0.5, 0.4] }}
             transition={{ duration: 5, repeat: Infinity }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/80" />
         </div>
 
         {/* Animated Background Elements */}
@@ -78,7 +78,7 @@ export default function Home() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="hidden sm:inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full border border-white/30 bg-white/5 backdrop-blur-md text-sm uppercase tracking-[0.2em] font-light">
+            <span className="px-5 py-2.5 rounded-full border border-white/30 bg-black/40 backdrop-blur-md text-xs uppercase tracking-[0.2em] font-medium text-white shadow-lg text-shadow-sm">
               ✨ Bespoke Wedding Design
             </span>
           </motion.div>
@@ -87,7 +87,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-sm md:text-base uppercase tracking-[0.3em] mb-6 font-light text-white/95"
+            className="text-sm md:text-base uppercase tracking-[0.25em] mb-6 font-medium text-white text-shadow-md"
           >
             ✨ Crafting Modern Legacies. Celebrating Timeless Traditions.
           </motion.p>
@@ -96,10 +96,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 1.2 }}
-            className="text-6xl md:text-7xl lg:text-8xl font-serif mb-8 leading-tight tracking-tight text-white"
+            className="text-6xl md:text-7xl lg:text-8xl font-serif mb-8 leading-tight tracking-tight text-white text-shadow-lg"
           >
             Timeless <motion.span 
-              className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white"
+              className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-white text-shadow-lg pb-4 pt-1"
               animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
               transition={{ duration: 5, repeat: Infinity }}
               style={{ backgroundSize: "200% 200%" }}
@@ -112,7 +112,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto font-light"
+            className="text-lg md:text-xl text-white/95 mb-12 max-w-2xl mx-auto font-normal text-shadow-md leading-relaxed"
           >
             From royal palace spectacles in Rajasthan to intimate coastal vows in Goa, we curate weddings that are as soulful as they are grand.
           </motion.p>
@@ -128,7 +128,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="bg-white text-black hover:bg-white/90 px-8 py-6 text-base font-semibold">
+                <Button className="bg-white text-black hover:bg-amber-50 px-8 py-6 text-base font-bold shadow-xl">
                   Begin Your Celebration
                 </Button>
               </motion.div>
@@ -138,7 +138,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button variant="outline" className="text-white border-white/50 hover:bg-white/10 px-8 py-6 text-base font-semibold">
+                <Button variant="outline" className="text-white border-white/70 bg-black/40 hover:bg-white/20 backdrop-blur-md px-8 py-6 text-base font-semibold shadow-lg text-shadow-sm">
                   View Our Film
                 </Button>
               </motion.div>
@@ -167,69 +167,77 @@ export default function Home() {
           </SectionReveal>
 
           {/* Video Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {/* Main Featured Video */}
+          {/* Video Player */}
+          <div className="mb-12">
             <motion.div 
-              className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/50 backdrop-blur-sm border border-white/10 group cursor-pointer lg:col-span-2"
-              onHoverStart={() => setVideoHovered(1)}
-              onHoverEnd={() => setVideoHovered(null)}
-              whileHover={{ scale: 1.02 }}
+              className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/20 group"
+              whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.5 }}
             >
-              <motion.iframe
-                src="https://www.youtube.com/embed/7nJc8kT56bE?autoplay=1&mute=1"
-                title="Wedding Highlights Reel"
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-              
-              {/* Overlay Play Button */}
-              <motion.div 
-                className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                whileHover={{ opacity: 1 }}
+              <video
+                poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1600"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover"
               >
-                <motion.div
-                  animate={videoHovered === 1 ? { scale: 1.1 } : { scale: 1 }}
-                  className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30"
-                >
-                  <Play className="w-8 h-8 text-white fill-white" />
-                </motion.div>
-              </motion.div>
+                <source src="/wedding-reel.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs text-white font-medium flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                Featured Highlight Reel
+              </div>
             </motion.div>
           </div>
 
           {/* Wedding Photography Gallery */}
           <SectionReveal className="text-center mb-12">
             <h3 className="text-3xl font-serif text-white mb-2">Curated Moments in Motion</h3>
-            <p className="text-white/60 font-light">Handpicked imagery from our heritage collections</p>
+            <p className="text-white/70 font-normal">Handpicked imagery from our heritage collections</p>
           </SectionReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               {
+                img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=800",
+                title: "Bridal Jewels & Elegance",
+              },
+              {
+                img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800",
+                title: "Sangeet Performances",
+              },
+              {
                 img: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
-                title: "Bridal Preparations",
+                title: "Vows & Sacred Fire",
               },
               {
-                img: "https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img/https://www.ptaufiqphotography.com/wp-content/uploads/2021/04/ptaufiq-indian-wedding-jaipur-india-sangeet1.jpg",
-                title: "Sangeet Performance",
-              },
-              {
-                img: "https://i0.wp.com/iglowstudioz.com/wp-content/uploads/2025/09/Why-Wedding-Vows-Matter-in-Every-Marriage-Ceremony.webp?resize=780%2C439&ssl=1",
-                title: "Vows & Emotions",
-              },
-              {
-                img: "https://cdn0.weddingwire.in/article/6146/3_2/1280/jpg/76416-how-to-make-your-wedding-reception-memorable-shades-photography-lead-image2.jpeg",
+                img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
                 title: "Reception Cascade",
               },
-      
-            
+              {
+                img: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=80&w=800",
+                title: "Royal Mandap Decor",
+              },
+              {
+                img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800",
+                title: "Baraat & Fireworks",
+              },
+              {
+                img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=800",
+                title: "Coastal Sunset Vows",
+              },
+              {
+                img: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=800",
+                title: "Candlelight Banquet",
+              },
             ].map((photo, idx) => (
               <SectionReveal key={idx} delay={idx * 0.05}>
                 <motion.div 
-                  className="relative group cursor-pointer overflow-hidden rounded-lg aspect-square"
-                  whileHover={{ scale: 1.05 }}
+                  className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square shadow-lg border border-white/10"
+                  whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.3 }}
                 >
                   <motion.img 
@@ -239,8 +247,8 @@ export default function Home() {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="text-white text-sm font-light">{photo.title}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-sm font-medium text-shadow-sm">{photo.title}</p>
                   </div>
                 </motion.div>
               </SectionReveal>
@@ -319,7 +327,7 @@ export default function Home() {
                 date: '2024',
                 location: 'Umaid Bhawan Palace, Jodhpur',
                 description: 'Regality & Marigold Suns.',
-                coverImage: 'https://images.unsplash.com/photo-1542317854-5a1f7b2a6d0a?auto=format&fit=crop&q=80',
+                coverImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200',
                 galleryImages: [],
                 featured: true,
               },
@@ -330,7 +338,7 @@ export default function Home() {
                 date: '2023',
                 location: 'Kumarakom, Kerala',
                 description: 'Tropical Minimalism & Traditional Elegance.',
-                coverImage: 'https://images.unsplash.com/photo-1505765059725-9b7d3f7b6b2d?auto=format&fit=crop&q=80',
+                coverImage: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=1200',
                 galleryImages: [],
                 featured: true,
               },
@@ -341,7 +349,7 @@ export default function Home() {
                 date: '2024',
                 location: 'The Taj Mahal Palace, Mumbai',
                 description: 'Art Deco Glamour & High-Octane Performance.',
-                coverImage: 'https://images.unsplash.com/photo-1526318472351-c75fcf070157?auto=format&fit=crop&q=80',
+                coverImage: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1200',
                 galleryImages: [],
                 featured: true,
               },
